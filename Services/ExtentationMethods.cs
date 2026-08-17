@@ -73,7 +73,7 @@ public static class ExtensionMethod
     public static QueueStatusResponse QueueTicketToStatusMapper(this QueueTicket ticket)
     {
         int estimatedSeconds = ticket.Status == QueueStatus.Waiting
-            ? ticket.QueuePosition * 10   // تقدير تقريبي: 10 ثواني لكل شخص قدامك
+            ? ticket.QueuePosition * 10
             : 0;
 
         return new QueueStatusResponse
@@ -95,7 +95,7 @@ public static class ExtensionMethod
         {
             Id = hold.Id,
             Quantity = hold.Quantity,
-
+            TotalPrice = hold.Quantity * hold.FareClass.Price,
             SecondsRemaining = secondsRemaining,
             Status = hold.Status
         };
@@ -107,8 +107,11 @@ public static class ExtensionMethod
         {
             Id = booking.Id,
             BookingReference = booking.BookingReference,
-
-
+            FlightNumber = booking.SeatHold.FareClass.Flight.FlightNumber,
+            Origin = booking.SeatHold.FareClass.Flight.Origin,
+            Destination = booking.SeatHold.FareClass.Flight.Destination,
+            DepartureAt = booking.SeatHold.FareClass.Flight.DepartureAt,
+            FareClassName = booking.SeatHold.FareClass.Name,
             Quantity = booking.Quantity,
             TotalPrice = booking.TotalPrice,
             Status = booking.Status,

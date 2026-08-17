@@ -10,7 +10,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnModelCreating(modelBuilder);   // لازم أول سطر، بتجهز جداول Identity
 
-
+        modelBuilder.Entity<Booking>()
+              .HasIndex(b => b.BookingReference)
+              .IsUnique();
         //     modelBuilder.Entity<Product>(entity =>
         // {
         //     entity.Property(p => p.Name)
