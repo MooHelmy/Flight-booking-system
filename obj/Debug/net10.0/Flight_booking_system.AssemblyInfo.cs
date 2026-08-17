@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Flight_booking_system")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ad815840f576e83f226cce8921bd7b164abca2b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d90d902cc0df6856e2a45450ff34b95c2467ed12")]
 [assembly: System.Reflection.AssemblyProductAttribute("Flight_booking_system")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Flight_booking_system")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
