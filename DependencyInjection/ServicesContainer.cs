@@ -67,11 +67,14 @@ public static class ServicesContainer
         services.AddScoped<IGeneric<Flight>, GenericRepo<Flight>>();
 
         // Application Services
+        // Application Services
         services.AddScoped<IFlightServices, FlightServices>();
         services.AddScoped<IFareClassServices, FareClassServices>();
         services.AddScoped<IQueueServices, QueueServices>();
         services.AddScoped<IHoldServices, HoldServices>();
         services.AddScoped<IBookingServices, BookingServices>();
+        services.AddScoped<ITokenService, TokenService>();   // <-- ضيف السطر ده
+        services.AddScoped<IAuthServices, AuthServices>();
 
         return services;
     }

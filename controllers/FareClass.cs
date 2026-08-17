@@ -7,7 +7,7 @@ public class FareClassController(IFareClassServices fareClassServices) : Control
 {
 
     [HttpPost]
-    [Authorize(Roles = "Manager,AirlineStaff")]
+    [Authorize(Roles = "Manager,AirlineStaff,Admin")]
     public async Task<ActionResult> CreateAsync(CreateFareClassRequest dto, Guid airlineStaffId)
     {
         var result = await fareClassServices.CreateAsync(dto, airlineStaffId);
