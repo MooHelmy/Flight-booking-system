@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 public class QueueServices(ApplicationDbContext context) : IQueueServices
 {
-    public async Task<QueueStatusResponse> JoinQueueAsync(int flightId, Guid userId)
+    public async Task<ServicesResponse<QueueStatusResponse>> JoinQueueAsync(int flightId, Guid userId)
     {
         var flight = await context.Flights.FindAsync(flightId);
 
@@ -22,7 +22,8 @@ public class QueueServices(ApplicationDbContext context) : IQueueServices
 
         if (existingTicket != null)
         {
-            return existingTicket.QueueTicketToStatusMapper();
+            return new ServicesResponse<QueueStatusResponse>(false,
+             "You are already in the queue", existingTicket.QueueTicketToStatusMapper());
         }
 
         // Fix #7: كان بيعد كل الـ tickets (حتى المنتهية) → الترتيب كان بيكبر غلط بمرور الوقت
@@ -42,10 +43,11 @@ public class QueueServices(ApplicationDbContext context) : IQueueServices
         context.QueueTickets.Add(queueTicket);
         await context.SaveChangesAsync();
 
-        return queueTicket.QueueTicketToStatusMapper();
+        return new ServicesResponse<QueueStatusResponse>(true, "Queue ticket joined successfully",
+            queueTicket.QueueTicketToStatusMapper());
     }
 
-    public async Task<QueueStatusResponse> GetStatusAsync(Guid queueTicketId, Guid userId)
+    public async Task<ServicesResponse<QueueStatusResponse>> GetStatusAsync(Guid queueTicketId, Guid userId)
     {
         var ticket = await context.QueueTickets.FindAsync(queueTicketId);
 
@@ -65,6 +67,7 @@ public class QueueServices(ApplicationDbContext context) : IQueueServices
             await context.SaveChangesAsync();
         }
 
-        return ticket.QueueTicketToStatusMapper();
+        return new ServicesResponse<QueueStatusResponse>(true,
+        "Queue ticket status retrieved successfully", ticket.QueueTicketToStatusMapper());
     }
 }
